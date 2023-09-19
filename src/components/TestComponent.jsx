@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 
 function TestComponent() {
   const [data, setData] = useState(null);
@@ -7,20 +7,23 @@ function TestComponent() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/v1/user/login", {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ 
-            email: "tony@stark.com", 
-            password: "password123" 
-          })
-        });
+        const response = await fetch(
+          "http://localhost:3001/api/v1/user/login",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: "tony@stark.com",
+              password: "password123",
+            }),
+          }
+        );
 
         if (!response.ok) {
-          throw new Error('Network response was not ok ' + response.statusText);
+          throw new Error("Network response was not ok " + response.statusText);
         }
 
         const result = await response.json();
@@ -46,5 +49,3 @@ function TestComponent() {
 }
 
 export default TestComponent;
-
-

@@ -1,17 +1,18 @@
 import "./App.css";
-import TestComponent from "./TestComponent";
+import "./main.scss";
+//import TestComponent from "./components/TestComponent";
+import {BrowserRouter as Router} from "react-router-dom";
+import Routes from "./routes/routes";
 
 function App() {
   return (
-    <div>
-      <TestComponent />
-    </div>
+    <Router>
+      <div>
+        <Routes />
+        {/* <TestComponent /> */}
+      </div>
+    </Router>
   );
 }
 
 export default App;
-
-// CREE L ARCHITECTURE DU PROJET
-// CREE LE ROUTING
-// CONFIGURER LE STORE REDUX
-// INTEGRATION DES PAGES
