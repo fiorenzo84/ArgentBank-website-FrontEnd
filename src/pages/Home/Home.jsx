@@ -1,11 +1,15 @@
+import FeatureHome from "../../components/FeatureHome/FeatureHome";
+import HeroHome from "../../components/HeroHome/HeroHome";
 import Footer from "../../layouts/footer/Footer";
 import Header from "../../layouts/header/Header";
 
 export default function Home() {
   return (
-    <main>
+    <div>
       <Header />
+      <HeroHome />
+      <FeatureHome />
       <Footer />
-    </main>
+    </div>
   );
 }

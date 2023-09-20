@@ -1,5 +1,4 @@
-import "./App.css";
-import "./main.scss";
+import "./styles/main.scss";
 //import TestComponent from "./components/TestComponent";
 import {BrowserRouter as Router} from "react-router-dom";
 import Routes from "./routes/routes";
@@ -7,10 +6,8 @@ import Routes from "./routes/routes";
 function App() {
   return (
     <Router>
-      <div>
-        <Routes />
-        {/* <TestComponent /> */}
-      </div>
+      <Routes />
+      {/* <TestComponent /> */}
     </Router>
   );
 }

@@ -1,20 +1,16 @@
-import Footer from "../../layouts/footer/Footer";
 import "./signin.scss";
-import ArgentBankLogo from "../../assets/images/argentBankLogo.png";
-import {Link} from "react-router-dom";
+import Footer from "../../layouts/footer/Footer";
+import Header from "../../layouts/header/Header";
+import FormSignIn from "../../components/FormSignIn/FormSignIn";
+
 export default function SignIn() {
   return (
-    <div>
-      <Link className="main-nav-logo" to="/">
-        <img
-          className="main-nav-logo-image"
-          src={ArgentBankLogo}
-          alt="Argent Bank Logo"
-        />
-        <h1 className="sr-only">Argent Bank</h1>
-      </Link>
-      page SignIn
+    <>
+      <Header />
+      <main className="main dark-bg">
+        <FormSignIn />
+      </main>
       <Footer />
-    </div>
+    </>
   );
 }
