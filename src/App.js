@@ -1,14 +1,16 @@
 import "./styles/main.scss";
-//import TestComponent from "./components/TestComponent";
 import {BrowserRouter as Router} from "react-router-dom";
 import Routes from "./routes/routes";
+import {Provider} from "react-redux";
+import store from "./redux/store/configureStore";
 
 function App() {
   return (
-    <Router>
-      <Routes />
-      {/* <TestComponent /> */}
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Routes />
+      </Router>
+    </Provider>
   );
 }
 
