@@ -3,18 +3,41 @@
 import "./formsignin.scss";
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {loginUser} from "../../redux/actions/sessionActions"; // Ajuste le chemin d'importation en fonction de ton projet
+import {loginUser} from "../../redux/actions/sessionActions";
 import {Navigate} from "react-router-dom";
 
 export default function FormSignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const isAuthenticated = useSelector((state) => state.session.isAuthenticated); // Ajuste en fonction de la structure de ton state
+  const isAuthenticated = useSelector((state) => state.session.isAuthenticated);
+  const [error, setError] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser(email, password));
+    dispatch(loginUser(email, password))
+      .then((response) => {
+        setError("");
+        if (rememberMe) {
+          localStorage.setItem("token", response.data.body.token);
+        } else {
+          sessionStorage.setItem("token", response.data.body.token);
+        }
+      })
+      .catch((err) => {
+        let errorMessage;
+        if (err.response && err.response.data && err.response.data.message) {
+          errorMessage =
+            err.response.data.message === "Error: User not found!"
+              ? "Identifiants incorrects. Veuillez réessayer."
+              : err.response.data.message;
+        } else {
+          errorMessage =
+            "Une erreur s'est produite lors de la connexion. Veuillez réessayer.";
+        }
+        setError(errorMessage);
+      });
   };
 
   if (isAuthenticated) {
@@ -47,13 +70,18 @@ export default function FormSignIn() {
           />
         </div>
         <div className="input-remember">
-          <input type="checkbox" id="remember-me" />
+          <input
+            type="checkbox"
+            id="remember-me"
+            checked={rememberMe}
+            onChange={(e) => setRememberMe(e.target.checked)}
+          />
           <label htmlFor="remember-me">Remember me</label>
         </div>
-        {/* ... */}
         <button type="submit" className="sign-in-button">
           Sign In
         </button>
+        {error && <p className="error-message">{error}</p>}
       </form>
     </section>
   );

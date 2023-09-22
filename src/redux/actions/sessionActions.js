@@ -18,9 +18,11 @@ export const loginUser = (email, password) => {
       console.log("API Response:", response.data);
       localStorage.setItem("token", response.data.body.token);
       dispatch({type: LOGIN_SUCCESS, payload: response.data});
+      return Promise.resolve(response.data); // Résoudre la promesse avec les données de réponse
     } catch (error) {
       console.error("Error Details:", error.response.data);
       dispatch({type: LOGIN_FAILURE, payload: error.response.data});
+      return Promise.reject(error); // Rejeter la promesse avec l'erreur
     }
   };
 };

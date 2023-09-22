@@ -1,3 +1,6 @@
+import React from "react";
+import {useSelector} from "react-redux";
+import {Navigate} from "react-router-dom";
 import "./user.scss";
 import BankAccount from "../../components/BankAccount/BankAccount";
 import Footer from "../../layouts/footer/Footer";
@@ -5,6 +8,12 @@ import Header from "../../layouts/header/Header";
 import UserInfo from "../../components/UserInfo/UserInfo";
 
 export default function User() {
+  const isAuthenticated = useSelector((state) => state.session.isAuthenticated);
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
   return (
     <>
       <Header />
@@ -20,5 +29,4 @@ export default function User() {
   );
 }
 
-// faire un composant Bankaccount
-// et dedans faire BankData
+// Faire composant (collapse) BankData
