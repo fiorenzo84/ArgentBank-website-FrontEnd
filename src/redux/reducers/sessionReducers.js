@@ -4,7 +4,7 @@
 
 //Il commence avec un initialState où l'utilisateur n'est pas authentifié, et il écoute les actions LOGIN_SUCCESS et LOGIN_FAILURE pour mettre à jour l'état de la session en fonction du succès ou de l'échec de la connexion.
 
-import {LOGIN_SUCCESS, LOGIN_FAILURE} from "../actions/types";
+import {LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT} from "../actions/types";
 
 const initialState = {
   isAuthenticated: false,
@@ -27,6 +27,13 @@ const sessionReducer = (state = initialState, action) => {
         isAuthenticated: false,
         userData: null,
         error: action.payload,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        isAuthenticated: false,
+        userData: null,
+        error: null,
       };
     default:
       return state;
