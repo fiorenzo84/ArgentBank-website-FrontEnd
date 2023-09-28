@@ -2,13 +2,13 @@
 
 // Ici, une action loginUser qui est une fonction asynchrone. Elle tente de se connecter en envoyant une requête POST à /api/login et dispatche soit une action LOGIN_SUCCESS avec les données de l'utilisateur, soit une action LOGIN_FAILURE avec l'erreur, en fonction du résultat de la requête.
 
-import {URL_LOGIN, URL_PROFILE} from "../../constants/apiUrls";
+import {URL_LOGIN, URL_PROFILE} from "../../api/apiUrls";
 import {LOGIN_SUCCESS} from "../actions/types";
 import {LOGIN_FAILURE} from "../actions/types";
 import {LOGOUT} from "./types";
 import axios from "axios";
 
-export const loginUser = (email, password) => {
+export const loginUser = (email, password, rememberMe) => {
   return async (dispatch) => {
     try {
       // Connexion de l'utilisateur
@@ -18,9 +18,13 @@ export const loginUser = (email, password) => {
         {headers: {"Content-Type": "application/json"}}
       );
 
-      // Stockage du token
+      // Stockage du token ( Si l'utilisateur coche "remember me", le token est stocké dans le localStorage, permettant une persistance des données même après la fermeture du navigateur. Sinon, le token est stocké dans le sessionStorage, et sera donc perdu une fois la session du navigateur terminée).
       const token = loginResponse.data.body.token;
-      localStorage.setItem("token", token);
+      if (rememberMe) {
+        localStorage.setItem("token", token);
+      } else {
+        sessionStorage.setItem("token", token);
+      }
 
       // Récupération du profil de l'utilisateur
       const profileResponse = await axios.post(

@@ -16,7 +16,7 @@ export default function FormSignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser(email, password))
+    dispatch(loginUser(email, password, rememberMe))
       .then((response) => {
         setError("");
         if (rememberMe) {

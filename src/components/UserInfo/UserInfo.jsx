@@ -1,7 +1,7 @@
 import "./userinfo.scss";
 import {useSelector} from "react-redux";
 
-export default function UserInfo() {
+export default function UserInfo({onEdit}) {
   const user = useSelector((state) => state.session.userData);
 
   return (
@@ -11,7 +11,7 @@ export default function UserInfo() {
         <br />
         {user && user.firstName} {user && user.lastName}
       </h1>
-      <button className="edit-button">Edit Name</button>
+      <button className="edit-button" onClick={onEdit}>Edit Name</button>
     </header>
   );
 }

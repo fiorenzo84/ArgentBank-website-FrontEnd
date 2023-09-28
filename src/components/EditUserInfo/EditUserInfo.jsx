@@ -1,0 +1,64 @@
+import {useState} from "react";
+import "./edituserinfo.scss";
+import {useSelector} from "react-redux";
+
+export default function EditUserInfo({onCancel}) {
+  const user = useSelector((state) => state.session.userData);
+  const [userName, setUserName] = useState(user && user.userName); // Nouvel état local pour userName
+
+  const handleUserNameChange = (e) => {
+    setUserName(e.target.value); // Met à jour l'état local avec la nouvelle valeur
+  };
+
+  return (
+    <section className="user-info-content">
+      <form>
+        <h1>Edit user info</h1>
+
+        <div className="input-wrapper-info">
+          <label htmlFor="username">User name:</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            autoComplete="username"
+            value={userName}
+            onChange={handleUserNameChange}
+          />
+        </div>
+
+        <div className="input-wrapper-info">
+          <label htmlFor="firstname">First name:</label>
+          <input
+            type="text"
+            name="firstname"
+            id="firstname"
+            placeholder={user && user.firstName}
+            disabled="disabled"
+          />
+        </div>
+
+        <div className="input-wrapper-info">
+          <label htmlFor="lastname">Last name:</label>
+          <input
+            type="text"
+            name="lastname"
+            id="lastname"
+            placeholder={user && user.lastName}
+            disabled="disabled"
+          />
+        </div>
+        <div className="button-wrapper-info">
+          <button>Save</button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              onCancel();
+            }}>
+            Cancel
+          </button>
+        </div>
+      </form>
+    </section>
+  );
+}

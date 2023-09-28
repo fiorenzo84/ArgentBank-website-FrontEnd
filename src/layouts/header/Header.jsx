@@ -29,7 +29,9 @@ export default function Header() {
           {isAuthenticated ? (
             <>
               <i className="fa fa-user-circle"></i>
-              <span className="main-nav-item">{user && user.firstName}</span>
+              <span className="main-nav-item">
+                <Link to="/profile">{user && user.firstName}</Link>
+              </span>
               <i className="fa fa-sign-out"></i>
               <Link className="main-nav-item" to="/" onClick={handleSignOut}>
                 <i className="fa fa-sign-out-alt"></i>

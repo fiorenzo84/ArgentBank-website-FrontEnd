@@ -1,0 +1,25 @@
+.expanded-data{
+    display: flex;
+    width: 80%;
+    margin: 0px auto;
+    color: white;
+    background: #00bc77;
+    margin-bottom: 25px;
+
+   .container-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    span {
+        width: 150px;
+        text-align: left;
+        font-weight: bold;
+        margin: 5px 5px;
+        font-size: 13px;
+    }
+    .category {
+        color: #ccc;
+        font-size: 14px;
+    }
+   } 
+}
