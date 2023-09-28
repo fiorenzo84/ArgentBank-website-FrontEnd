@@ -1,0 +1,25 @@
+Outil de compression utilisé : TinyPNG
+Poids total des images : 224.4 kB
+Taille après compression : 82.4 kB
+Gain de taille : 63.24%
+
+Nom de l'image : argentBankLogo.png
+Taille originale : 27.4 kB
+Taille après compression : 6.0 kB
+
+Nom de l'image : bank-tree.jpeg
+Taille originale : 119 kB
+Taille après compression : 59.0 kB
+
+Nom de l'image : icon-chat.png
+Taille originale : 21.8 kB
+Taille après compression : 5.0 kB
+
+Nom de l'image : icon-money.png
+Taille originale : 17.9 kB
+Taille après compression : 4.1 kB
+
+Nom de l'image : icon-security.png
+Taille originale : 38.3 kB
+Taille après compression : 8.3 kB
+
