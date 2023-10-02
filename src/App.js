@@ -1,16 +1,25 @@
 import "./styles/main.scss";
-import {BrowserRouter as Router} from "react-router-dom";
 import Routes from "./routes/routes";
-import {Provider} from "react-redux";
-import store from "./redux/store/configureStore";
+import {useEffect} from "react";
+import {BrowserRouter as Router} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {restoreUserSession} from "./redux/actions/sessionActions";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+    if (token) {
+      dispatch(restoreUserSession(token));
+    }
+  }, [dispatch]);
+
   return (
-    <Provider store={store}>
-      <Router>
-        <Routes />
-      </Router>
-    </Provider>
+    <Router>
+      <Routes />
+    </Router>
   );
 }
 
