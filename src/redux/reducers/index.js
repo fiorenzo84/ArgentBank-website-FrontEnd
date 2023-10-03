@@ -5,7 +5,6 @@ import sessionReducer from "./sessionReducers";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
-  // Ajoute ici d'autres reducers au fur et à mesure
 });
 
 export default rootReducer;

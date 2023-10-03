@@ -12,7 +12,6 @@ export default function Header() {
   const handleSignOut = () => {
     dispatch(logoutUser());
   };
-  //console.log('User Object:', user);
 
   return (
     <header>
@@ -30,7 +29,9 @@ export default function Header() {
             <>
               <i className="fa fa-user-circle"></i>
               <span className="main-nav-item">
-                <Link to="/profile">{user && user.firstName}</Link>
+                <Link to="/profile">
+                  {user && (user.userName || user.firstName)}
+                </Link>
               </span>
               <i className="fa fa-sign-out"></i>
               <Link className="main-nav-item" to="/" onClick={handleSignOut}>

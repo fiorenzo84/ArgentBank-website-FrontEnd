@@ -9,9 +9,12 @@ export default function UserInfo({onEdit}) {
       <h1>
         Welcome back
         <br />
-        {user && user.firstName} {user && user.lastName}
+        {user && (user.userName || user.firstName)}
+        {/* {user && user.lastName} */}
       </h1>
-      <button className="edit-button" onClick={onEdit}>Edit Name</button>
+      <button className="edit-button" onClick={onEdit}>
+        Edit Name
+      </button>
     </header>
   );
 }

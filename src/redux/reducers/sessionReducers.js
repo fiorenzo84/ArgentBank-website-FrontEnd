@@ -9,6 +9,8 @@ import {
   LOGIN_FAILURE,
   LOGOUT,
   RESTORE_USER_SESSION,
+  UPDATE_USERNAME_SUCCESS,
+  UPDATE_USERNAME_FAILURE,
 } from "../actions/types";
 
 const initialState = {
@@ -20,6 +22,7 @@ const initialState = {
 const sessionReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
+    case RESTORE_USER_SESSION:
       return {
         ...state,
         isAuthenticated: true,
@@ -27,10 +30,9 @@ const sessionReducer = (state = initialState, action) => {
         error: null,
       };
     case LOGIN_FAILURE:
+    case UPDATE_USERNAME_FAILURE:
       return {
         ...state,
-        isAuthenticated: false,
-        userData: null,
         error: action.payload,
       };
     case LOGOUT:
@@ -40,11 +42,16 @@ const sessionReducer = (state = initialState, action) => {
         userData: null,
         error: null,
       };
-    case RESTORE_USER_SESSION:
+    case UPDATE_USERNAME_SUCCESS:
+      console.log("Action Payload:", action.payload); // Log the entire payload
+      console.log("Username from Payload:", action.payload.body.userName); // Log the userName from the payload
       return {
         ...state,
-        userData: action.payload,
-        isAuthenticated: true,
+        userData: {
+          ...state.userData,
+          userName: action.payload.body.userName,
+        },
+        error: null, // Réinitialisez l'erreur en cas de succès
       };
     default:
       return state;

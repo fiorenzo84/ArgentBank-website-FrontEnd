@@ -1,13 +1,21 @@
 import {useState} from "react";
 import "./edituserinfo.scss";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
+import {updateUsername} from "../../redux/actions/userActions";
 
 export default function EditUserInfo({onCancel}) {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.session.userData);
   const [userName, setUserName] = useState(user && user.userName); // Nouvel état local pour userName
 
   const handleUserNameChange = (e) => {
     setUserName(e.target.value); // Met à jour l'état local avec la nouvelle valeur
+  };
+
+  const handleSave = (e) => {
+    e.preventDefault();
+    dispatch(updateUsername(user.id, userName));
+    onCancel();
   };
 
   return (
@@ -49,7 +57,7 @@ export default function EditUserInfo({onCancel}) {
           />
         </div>
         <div className="button-wrapper-info">
-          <button>Save</button>
+          <button onClick={handleSave}>Save</button>
           <button
             onClick={(e) => {
               e.preventDefault();

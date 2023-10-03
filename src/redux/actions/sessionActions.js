@@ -29,7 +29,6 @@ export const loginUser = (email, password, rememberMe) => {
         sessionStorage.setItem("token", token);
       }
 
-      // Récupération du profil de l'utilisateur
       const profileResponse = await axios.post(
         URL_PROFILE,
         {},
@@ -41,9 +40,7 @@ export const loginUser = (email, password, rememberMe) => {
         }
       );
 
-      // Dispatch de l'action avec les détails de l'utilisateur
       dispatch({type: LOGIN_SUCCESS, payload: profileResponse.data.body});
-
       return Promise.resolve(profileResponse.data.body);
     } catch (error) {
       console.error("Error Details:", error.response.data);

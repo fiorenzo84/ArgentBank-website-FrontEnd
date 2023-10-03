@@ -1,7 +1,7 @@
 import "./featurehome.scss";
-import IconChat from '../../assets/images/icon-chat.png';
-import IconMoney from '../../assets/images/icon-money.png';
-import IconSecurity from '../../assets/images/icon-security.png';
+import IconChat from "../../assets/images/icon-chat.png";
+import IconMoney from "../../assets/images/icon-money.png";
+import IconSecurity from "../../assets/images/icon-security.png";
 export default function FeatureHome() {
   return (
     <section className="features">
@@ -20,11 +20,7 @@ export default function FeatureHome() {
         <p>The more you save with us, the higher your interest rate will be!</p>
       </div>
       <div className="feature-item">
-        <img
-          src={IconSecurity}
-          alt="Chat Icon"
-          className="feature-icon"
-        />
+        <img src={IconSecurity} alt="Chat Icon" className="feature-icon" />
         <h3 className="feature-item-title">Security you can trust</h3>
         <p>
           We use top of the line encryption to make sure your data and money is
