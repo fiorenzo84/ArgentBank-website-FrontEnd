@@ -27,6 +27,3 @@ export default function BankData() {
     </>
   );
 }
-
-// RAJOUTER CHEVRONUP QUAND BANDATAEXPANDED EST TRUE
-// MODIFIER MARGE DE BANKDATA QUAND CLOSE

@@ -1,4 +1,4 @@
-// Le rootReducer combine tous les reducers individuels en un seul reducer.Ici, un seul reducer, sessionReducer, qui est associé à la clé session dans l'état global.
+// The rootReducer combines all reducers. Currently, there's sessionReducer, but more can be added in the future.
 
 import {combineReducers} from "redux";
 import sessionReducer from "./sessionReducers";

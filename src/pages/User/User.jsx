@@ -10,7 +10,7 @@ import EditUserInfo from "../../components/EditUserInfo/EditUserInfo";
 
 export default function User() {
   const isAuthenticated = useSelector((state) => state.session.isAuthenticated);
-  const [isEditing, setIsEditing] = useState(false); // Nouvel état local pour le basculement
+  const [isEditing, setIsEditing] = useState(false);
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;

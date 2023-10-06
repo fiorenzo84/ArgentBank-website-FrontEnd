@@ -1,4 +1,4 @@
-//connectez ses composants React à notre store Redux en utilisant useDispatch pour dispatcher des actions et useSelector pour accéder à l'état du store.
+// Connect React components to the Redux store using useDispatch and useSelector.
 
 import "./formsignin.scss";
 import React, {useState} from "react";

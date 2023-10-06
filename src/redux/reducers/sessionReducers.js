@@ -1,8 +1,5 @@
-//Les reducers sont des fonctions qui prennent l'état actuel et une action, puis renvoient un nouvel état. Ils sont purs, ce qui signifie qu'ils ne modifient pas l'état actuel, mais renvoient plutôt une copie modifiée de l'état.
-
-// Le reducer sessionReducer gère l'état de la session utilisateur dans l'application, avec les constantes importer pour eviter les fautes de frappes.
-
-//Il commence avec un initialState où l'utilisateur n'est pas authentifié, et il écoute les actions LOGIN_SUCCESS et LOGIN_FAILURE pour mettre à jour l'état de la session en fonction du succès ou de l'échec de la connexion.
+// The sessionReducer manages the user session state within the app, using imported constants to avoid typos.
+// It starts with an initialState where the user is not authenticated, and listens to actions to update the session state.
 
 import {
   LOGIN_SUCCESS,
@@ -44,14 +41,13 @@ const sessionReducer = (state = initialState, action) => {
       };
     case UPDATE_USERNAME_SUCCESS:
       console.log("Action Payload:", action.payload); // Log the entire payload
-      console.log("Username from Payload:", action.payload.body.userName); // Log the userName from the payload
       return {
         ...state,
         userData: {
           ...state.userData,
           userName: action.payload.body.userName,
         },
-        error: null, // Réinitialisez l'erreur en cas de succès
+        error: null,
       };
     default:
       return state;

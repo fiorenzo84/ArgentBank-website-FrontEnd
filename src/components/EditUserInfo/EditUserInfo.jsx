@@ -6,10 +6,10 @@ import {updateUsername} from "../../redux/actions/userActions";
 export default function EditUserInfo({onCancel}) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.userData);
-  const [userName, setUserName] = useState(user && user.userName); // Nouvel état local pour userName
+  const [userName, setUserName] = useState(user && user.userName); // New local state for userName
 
   const handleUserNameChange = (e) => {
-    setUserName(e.target.value); // Met à jour l'état local avec la nouvelle valeur
+    setUserName(e.target.value);
   };
 
   const handleSave = (e) => {
