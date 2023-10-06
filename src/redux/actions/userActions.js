@@ -1,21 +1,13 @@
 import axios from "axios";
 import {UPDATE_USERNAME_SUCCESS, UPDATE_USERNAME_FAILURE} from "./types";
 import {URL_PROFILE} from "../../api/apiUrls";
+import {getToken} from "../../utils/tokenUtils";
 
 export const updateUsername = (userId, newUsername) => {
   return async (dispatch) => {
     try {
-      // Récupérez le token du localStorage ou sessionStorage
-      const token =
-        localStorage.getItem("token") || sessionStorage.getItem("token");
+      const token = getToken();
 
-      // Vérifiez si le token est défini
-      if (!token) {
-        console.error("Token is not found");
-        throw new Error("Token is not found");
-      }
-
-      // Envoyez la requête avec le token
       const response = await axios.put(
         URL_PROFILE,
         {userName: newUsername},
@@ -27,7 +19,7 @@ export const updateUsername = (userId, newUsername) => {
         }
       );
       console.log("Sent Username:", newUsername);
-      // Si la requête est réussie, dispatchez l'action de succès
+      // If the request is successful, dispatch the success action.
       dispatch({type: UPDATE_USERNAME_SUCCESS, payload: response.data});
     } catch (error) {
       console.error(

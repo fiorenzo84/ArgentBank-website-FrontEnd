@@ -1,7 +1,3 @@
-//Les actions sont des objets qui ont généralement deux propriétés : type et payload. Le type décrit le type d'action effectuée, et le payload transporte les données qui doivent être mises à jour dans le store.
-
-// Ici, une action loginUser qui est une fonction asynchrone. Elle tente de se connecter en envoyant une requête POST à /api/login et dispatche soit une action LOGIN_SUCCESS avec les données de l'utilisateur, soit une action LOGIN_FAILURE avec l'erreur, en fonction du résultat de la requête.
-
 import {URL_LOGIN, URL_PROFILE} from "../../api/apiUrls";
 import {
   LOGIN_SUCCESS,
@@ -10,18 +6,17 @@ import {
   RESTORE_USER_SESSION,
 } from "../actions/types";
 import axios from "axios";
+import {getToken} from "../../utils/tokenUtils";
 
 export const loginUser = (email, password, rememberMe) => {
   return async (dispatch) => {
     try {
-      // Connexion de l'utilisateur
       const loginResponse = await axios.post(
         URL_LOGIN,
         {email, password},
         {headers: {"Content-Type": "application/json"}}
       );
 
-      // Stockage du token ( Si l'utilisateur coche "remember me", le token est stocké dans le localStorage, permettant une persistance des données même après la fermeture du navigateur. Sinon, le token est stocké dans le sessionStorage, et sera donc perdu une fois la session du navigateur terminée).
       const token = loginResponse.data.body.token;
       if (rememberMe) {
         localStorage.setItem("token", token);
@@ -52,24 +47,29 @@ export const loginUser = (email, password, rememberMe) => {
 
 export const logoutUser = () => {
   return (dispatch) => {
-    // Suppression du token du localStorage si il y est présent
-    if (localStorage.getItem("token")) {
-      localStorage.removeItem("token");
-    }
+    // Remove the token if it exists.
+    const token = getToken();
 
-    // Suppression du token du sessionStorage si il y est présent
-    if (sessionStorage.getItem("token")) {
+    if (token) {
+      localStorage.removeItem("token");
       sessionStorage.removeItem("token");
     }
 
-    dispatch({type: LOGOUT}); // Dispatch de l'action déconnexion
+    dispatch({type: LOGOUT});
   };
 };
 
-export const restoreUserSession = (token) => {
+export const restoreUserSession = () => {
   return async (dispatch) => {
     try {
-      // Utilisez le token pour récupérer les détails de l'utilisateur
+      const token = getToken();
+
+      if (!token) {
+        console.error("Token is not found");
+        throw new Error("Token is not found");
+      }
+
+      // Use the token to retrieve the user's details
       const profileResponse = await axios.post(
         URL_PROFILE,
         {},
@@ -81,7 +81,7 @@ export const restoreUserSession = (token) => {
         }
       );
 
-      // Dispatch de l'action avec les détails de l'utilisateur
+      // Dispatch the action with the user's details
       dispatch({
         type: RESTORE_USER_SESSION,
         payload: profileResponse.data.body,
