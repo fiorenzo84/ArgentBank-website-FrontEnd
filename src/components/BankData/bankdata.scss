@@ -1,0 +1,43 @@
+.bank-data {
+  position: relative;
+  display: flex;
+  width: 80%;
+  height: 30px;
+  margin: 0px auto;
+  justify-content: space-around;
+  align-items: center;
+  font-weight: bold;
+  background: #00bc77;
+  color: white;
+  margin-top: 5px;
+
+  p {
+    font-size: 14px;
+    margin: 0;
+    width: 150px;
+  }
+}
+
+.bank-data-chevronDown {
+  position: absolute;
+  left: 95%;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+.bank-data-expanded {
+  transform-origin: top;
+  transform: scaleY(0);
+  opacity: 0;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.bank-data-expanded.open {
+  transform: scaleY(1);
+  opacity: 1;
+}
