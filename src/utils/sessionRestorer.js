@@ -16,24 +16,23 @@ function SessionRestorer() {
   }, [dispatch]);
 
   useEffect(() => {
-    document.addEventListener("click", handleClickEvent);
-
-    // Cleanup: remove the event listener when the component is unmounted
-    return () => {
-      document.removeEventListener("click", handleClickEvent);
-    };
-  }, [handleClickEvent]);
-
-  // session restore + a case where there is a 401 code
-  useEffect(() => {
+    // Check the presence of the token when mounting the component
     const token = getToken();
     if (token) {
-      dispatch(restoreUserSession());
+      dispatch(restoreUserSession(token));
     } else {
       console.warn("No token found.");
       dispatch(logoutUser());
     }
-  }, [dispatch]);
+
+    // Add the click event handler
+    document.addEventListener("click", handleClickEvent);
+
+    // Cleanup: Remove event handler when component is unmounted
+    return () => {
+      document.removeEventListener("click", handleClickEvent);
+    };
+  }, [handleClickEvent, dispatch]);
 
   return null;
 }

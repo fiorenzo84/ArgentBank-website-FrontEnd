@@ -59,15 +59,9 @@ export const logoutUser = () => {
   };
 };
 
-export const restoreUserSession = () => {
+export const restoreUserSession = (token) => {
   return async (dispatch) => {
     try {
-      const token = getToken();
-
-      if (!token) {
-        throw new Error("Token is not found");
-      }
-
       // Use the token to retrieve the user's details
       const profileResponse = await axios.post(
         URL_PROFILE,
