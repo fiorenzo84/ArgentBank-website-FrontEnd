@@ -9,35 +9,14 @@ import {Navigate} from "react-router-dom";
 export default function FormSignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const isAuthenticated = useSelector((state) => state.session.isAuthenticated);
-  const [error, setError] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const isAuthenticated = useSelector((state) => state.session.isAuthenticated);
+  const error = useSelector((state) => state.session.error);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser(email, password, rememberMe))
-      .then((response) => {
-        setError("");
-        if (rememberMe) {
-          localStorage.setItem("token", response.data.body.token);
-        } else {
-          sessionStorage.setItem("token", response.data.body.token);
-        }
-      })
-      .catch((err) => {
-        let errorMessage;
-        if (err.response && err.response.data && err.response.data.message) {
-          errorMessage =
-            err.response.data.message === "Error: User not found!"
-              ? "Identifiants incorrects. Veuillez réessayer."
-              : err.response.data.message;
-        } else {
-          errorMessage =
-            "Une erreur s'est produite lors de la connexion. Veuillez réessayer.";
-        }
-        setError(errorMessage);
-      });
+    dispatch(loginUser(email, password, rememberMe));
   };
 
   if (isAuthenticated) {
