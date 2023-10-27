@@ -36,11 +36,22 @@ export const loginUser = (email, password, rememberMe) => {
       );
 
       dispatch({type: LOGIN_SUCCESS, payload: profileResponse.data.body});
-      return Promise.resolve(profileResponse.data.body);
     } catch (error) {
-      console.error("Error Details:", error.response.data);
-      dispatch({type: LOGIN_FAILURE, payload: error.response.data});
-      return Promise.reject(error);
+      let errorMessage;
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        errorMessage =
+          error.response.data.message === "Error: User not found!"
+            ? "Identifiants incorrects. Veuillez réessayer."
+            : error.response.data.message;
+      } else {
+        errorMessage =
+          "Une erreur s'est produite lors de la connexion. Veuillez réessayer.";
+      }
+      dispatch({type: LOGIN_FAILURE, payload: errorMessage});
     }
   };
 };
@@ -79,15 +90,12 @@ export const restoreUserSession = (token) => {
         type: RESTORE_USER_SESSION,
         payload: profileResponse.data.body,
       });
-
-      return Promise.resolve(profileResponse.data.body);
     } catch (error) {
       console.error("Error Details:", error.response.data);
       // check status 401 and deconnect if true
       if (error.response && error.response.status === 401) {
         dispatch(logoutUser());
       }
-      return Promise.reject(error);
     }
   };
 };
